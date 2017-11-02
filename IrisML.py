@@ -59,4 +59,31 @@ scatter_matrix(dataset)
 plt.show()
 
 
-# STEP 4: Evaluating Algorithms:
+# STEP 4: Set-up for Evaluating Algorithms
+# Evaluating Algorithms will consist of a few steps:
+#   1. Separate out a validation dataset
+#   2. Set-up the test harness to use 10-fold cross validation
+#   3. Build 5 different models to predit species from flower measurements
+#   4. Select the best model
+
+# Create a Validation Dataset:
+
+# Split-out validation dataset
+# test_size is 20%... Typically we have 80% train, 20% test
+# X_train and Y_train will hold the data points for our train set
+# X_test and Y_test will hold the data points for our test set (or validation set)
+arr = dataset.values
+X = arr[:,0:4]
+Y = arr[:,4]
+test_size = 0.20
+seed = 7
+scoring = 'accuracy'
+X_train, X_test, Y_train, Y_test = model_selection.train_test_split(X, Y, test_size=test_size, random_state=seed)
+
+
+# Step 5 Evaluating Algorithms / Build Models:
+#   6 different algorithms will be shown here
+#   Logistic Regression (LR)
+#   Linear Discimninant Analsis (LDA)
+#   K-Nearest Neighbors (KNN)
+#
