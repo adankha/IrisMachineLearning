@@ -21,3 +21,5 @@ Each Algorithm is compared with eachother to determine which has the highest acc
 Comparison is done simply by accuracy.
 
 Once the "best" algorithm with the current data set is determined, we then make our predictions by using our test data.
+
+In the example used in this program, KNN and SVM were the two best.
