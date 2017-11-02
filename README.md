@@ -18,4 +18,6 @@ The algorithms used in this program are:
 * Support Vector Machines (SVM)
 
 Each Algorithm is compared with eachother to determine which has the highest accuracy.
-Comparison is done simply by accuracy
+Comparison is done simply by accuracy.
+
+Once the "best" algorithm with the current data set is determined, we then make our predictions by using our test data.
