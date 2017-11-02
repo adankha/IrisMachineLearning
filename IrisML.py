@@ -3,7 +3,7 @@ import pandas
 from pandas.plotting import scatter_matrix
 
 import matplotlib.pyplot as plt
-from sklearn import model_selection
+from sklearn import model_selection, svm
 from sklearn.metrics import classification_report
 from sklearn.metrics import confusion_matrix
 from sklearn.metrics import accuracy_score
@@ -86,4 +86,51 @@ X_train, X_test, Y_train, Y_test = model_selection.train_test_split(X, Y, test_s
 #   Logistic Regression (LR)
 #   Linear Discimninant Analsis (LDA)
 #   K-Nearest Neighbors (KNN)
-#
+#   Classification and Regression Trees (CART)
+#   Gaussian Naive Bayes (NB)
+#   Support Vector Machines (SVM)
+
+# Spot Checking Algorithms to see which has the highest accuracy
+
+models = []
+models.append(('LR', LogisticRegression()))
+models.append(('LDA', LinearDiscriminantAnalysis()))
+models.append(('KNN', KNeighborsClassifier()))
+models.append(('CART', DecisionTreeClassifier()))
+models.append(('NB', GaussianNB()))
+models.append(('SVM', SVC()))
+
+# evaluate each model in turn
+results = []
+names = []
+for name, model in models:
+    kfold = model_selection.KFold(n_splits=10, random_state=seed)
+    cv_results = model_selection.cross_val_score(model, X_train, Y_train, cv=kfold, scoring=scoring)
+    results.append(cv_results)
+    names.append(name)
+    msg = "%s: %f (%f)" % (name, cv_results.mean(), cv_results.std())
+    print(msg)
+
+# Compare Algorithms with plots:
+fig = plt.figure()
+fig.suptitle('Algorithm Comparison')
+ax = fig.add_subplot(111)
+plt.boxplot(results)
+ax.set_xticklabels(names)
+plt.show()
+
+# Evaluating the accuracies, KNN and SVM would be our choice, so lets make predictions using KNN:
+knn = KNeighborsClassifier()
+knn.fit(X_train, Y_train)
+predictions = knn.predict(X_test)
+print(accuracy_score(Y_test, predictions))
+print(confusion_matrix(Y_test, predictions))
+print(classification_report(Y_test, predictions))
+
+# Using SVM:
+my_svm = svm.SVC(kernel='linear', C=1.0)
+my_svm.fit(X_train, Y_train, )
+predictions = my_svm.predict(X_test)
+print(accuracy_score(Y_test, predictions))
+print(confusion_matrix(Y_test, predictions))
+print(classification_report(Y_test, predictions))
