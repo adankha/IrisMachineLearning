@@ -1,4 +1,3 @@
-# Load libraries
 import pandas
 from pandas.plotting import scatter_matrix
 
@@ -47,7 +46,7 @@ print(dataset.groupby('class').size())
 
 
 # Univariate: Box and Whisker Plots:
-dataset.plot(kind='box', subplots=True, layout=(2,2), sharex=False, sharey=False)
+dataset.plot(kind='box', subplots=True, layout=(2, 2), sharex=False, sharey=False)
 #plt.show()
 
 # Univariate: Hisogram Plots:
@@ -56,7 +55,7 @@ dataset.hist()
 
 # Multivariate Plots: Scatter Plot Matrix
 scatter_matrix(dataset)
-plt.show()
+#plt.show()
 
 
 # STEP 4: Set-up for Evaluating Algorithms
@@ -73,32 +72,31 @@ plt.show()
 # X_train and Y_train will hold the data points for our train set
 # X_test and Y_test will hold the data points for our test set (or validation set)
 arr = dataset.values
-X = arr[:,0:4]
-Y = arr[:,4]
+X = arr[:, 0:4]
+Y = arr[:, 4]
 test_size = 0.20
 seed = 7
 scoring = 'accuracy'
 X_train, X_test, Y_train, Y_test = model_selection.train_test_split(X, Y, test_size=test_size, random_state=seed)
-
+print('x_test:', X_test)
+print('y_test:', Y_test)
 
 # Step 5 Evaluating Algorithms / Build Models:
 #   6 different algorithms will be shown here
-#   Logistic Regression (LR)
-#   Linear Discimninant Analsis (LDA)
-#   K-Nearest Neighbors (KNN)
-#   Classification and Regression Trees (CART)
-#   Gaussian Naive Bayes (NB)
-#   Support Vector Machines (SVM)
+#       1. Logistic Regression (LR)
+#       2. Linear Discimninant Analsis (LDA)
+#       3. K-Nearest Neighbors (KNN)
+#       4. Classification and Regression Trees (CART)
+#       5. Gaussian Naive Bayes (NB)
+#       6. Support Vector Machines (SVM)
 
 # Spot Checking Algorithms to see which has the highest accuracy
 
-models = []
-models.append(('LR', LogisticRegression()))
-models.append(('LDA', LinearDiscriminantAnalysis()))
-models.append(('KNN', KNeighborsClassifier()))
-models.append(('CART', DecisionTreeClassifier()))
-models.append(('NB', GaussianNB()))
-models.append(('SVM', SVC()))
+models = [('LR', LogisticRegression()),
+          ('LDA', LinearDiscriminantAnalysis()),
+          ('KNN', KNeighborsClassifier()),
+          ('CART', DecisionTreeClassifier()),
+          ('NB', GaussianNB()), ('SVM', SVC())]
 
 # evaluate each model in turn
 results = []
